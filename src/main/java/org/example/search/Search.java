@@ -1,0 +1,61 @@
+package org.example.search;
+
+import org.example.entity.Entity;
+import org.example.map.Map;
+import org.example.model.Coordinates;
+import org.example.model.EntityName;
+
+import java.util.*;
+
+public class Search {
+    private final Queue<Coordinates> coordinatesQueue = new LinkedList<>();
+    private final Set<Coordinates> visitedCoordinates = new HashSet<>();
+
+    public Coordinates getClosestEntity(Coordinates currentCoordinates, EntityName entityName, Map map) {
+        coordinatesQueue.add(currentCoordinates);
+
+        while (!coordinatesQueue.isEmpty()) {
+            Coordinates coordinates = coordinatesQueue.remove();
+            Entity entity = map.getEntity(coordinates);
+            if (entity != null && entity.getName().equals(entityName)) {
+                return coordinates;
+            }
+
+            visitedCoordinates.add(coordinates);
+
+            int x = coordinates.getX();
+            int y = coordinates.getY();
+
+            if (x - 1 >= 0) {
+                Coordinates newCoordinates = Coordinates.builder().x(x-1).y(y).build();
+                if (!visitedCoordinates.contains(newCoordinates)) {
+                    coordinatesQueue.add(newCoordinates);
+                };
+            }
+
+            if (x + 1 < map.getWidth()) {
+                Coordinates newCoordinates = Coordinates.builder().x(x+1).y(y).build();
+                if (!visitedCoordinates.contains(newCoordinates)) {
+                    coordinatesQueue.add(newCoordinates);
+                };
+            }
+
+            if (y - 1 >= 0) {
+                Coordinates newCoordinates = Coordinates.builder().x(x).y(y-1).build();
+                if (!visitedCoordinates.contains(newCoordinates)) {
+                    coordinatesQueue.add(newCoordinates);
+                };
+            }
+
+            if (y + 1 < map.getHeight()) {
+                Coordinates newCoordinates = Coordinates.builder().x(x).y(y+1).build();
+                if (!visitedCoordinates.contains(newCoordinates)) {
+                    coordinatesQueue.add(newCoordinates);
+                };
+            }
+        }
+
+        return currentCoordinates;
+    }
+
+}
