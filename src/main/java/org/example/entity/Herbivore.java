@@ -5,9 +5,6 @@ import org.example.model.Coordinates;
 import org.example.model.EntityName;
 import org.example.search.Search;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Set;
 
 /**
@@ -28,8 +25,12 @@ public class Herbivore extends Creature {
     public void makeMove(Map map) {
         Search search = new Search();
 
-        Coordinates closestCoordinatesEntity = search.getClosestEntity(this.coordinates, EntityName.GRASS, map);
+        boolean thisIsCow = map.getEntity(this.coordinates).name.equals(EntityName.HERBIVORE);
+        if (!thisIsCow) {
+            return;
+        }
 
+        Coordinates closestCoordinatesEntity = search.getClosestEntity(this.coordinates, EntityName.GRASS, map);
         boolean isClosest = this.coordinates.isClosest(closestCoordinatesEntity);
         boolean isGrass = map.getEntity(closestCoordinatesEntity).name.equals(EntityName.GRASS);
 

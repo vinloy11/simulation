@@ -10,8 +10,8 @@ public class Coordinates {
     private int y;
 
     public boolean isClosest(Coordinates coordinates) {
-        int currentCoordinateSum = this.getX() + this.getY();
-        int coordinateSum = coordinates.getX() + coordinates.getY();
-        return Math.abs(coordinateSum - currentCoordinateSum) == 1;
+        boolean x = Math.abs(this.getX() - coordinates.getX()) <= 1;
+        boolean y =  Math.abs(this.getY() - coordinates.getY()) <= 1;
+        return x && y;
     }
 }

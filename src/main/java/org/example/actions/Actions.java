@@ -56,35 +56,35 @@ public class Actions {
 
         switch (entityName) {
             case GRASS:
-                for (int i = 0; i < mapCount / 5; i++) {
+                for (int i = 0; i < mapCount / 10; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Grass grass = new Grass(coordinates);
                     this.map.setEntity(coordinates, grass);
                 }
                 break;
             case ROCK:
-                for (int i = 0; i < mapCount / 10; i++) {
+                for (int i = 0; i < mapCount / 100; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Rock rock = new Rock(coordinates);
                     this.map.setEntity(coordinates, rock);
                 }
                 break;
             case TREE:
-                for (int i = 0; i < mapCount / 20; i++) {
+                for (int i = 0; i < mapCount / 100; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Tree tree = new Tree(coordinates);
                     this.map.setEntity(coordinates, tree);
                 }
                 break;
             case HERBIVORE:
-                for (int i = 0; i < mapCount / 10; i++) {
+                for (int i = 0; i < mapCount / 20; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Herbivore herbivore = new Herbivore(coordinates);
                     this.map.setEntity(coordinates, herbivore);
                 }
                 break;
             case PREDATOR:
-                for (int i = 0; i < mapCount / 10; i++) {
+                for (int i = 0; i < mapCount / 20; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Predator predator = new Predator(coordinates);
                     this.map.setEntity(coordinates, predator);
