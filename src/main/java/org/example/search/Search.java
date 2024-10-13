@@ -1,5 +1,6 @@
 package org.example.search;
 
+import lombok.Getter;
 import org.example.entity.Entity;
 import org.example.map.Map;
 import org.example.model.Coordinates;
@@ -8,12 +9,16 @@ import org.example.model.EntityName;
 import java.util.*;
 
 public class Search {
+    @Getter
     private final Queue<Coordinates> coordinatesQueue = new LinkedList<>();
+    @Getter
     private final Set<Coordinates> visitedCoordinates = new HashSet<>();
 
     public Coordinates getClosestEntity(Coordinates currentCoordinates, EntityName entityName, Map map) {
         coordinatesQueue.add(currentCoordinates);
 
+        // 4,1
+        // 6,0
         while (!coordinatesQueue.isEmpty()) {
             Coordinates coordinates = coordinatesQueue.remove();
             Entity entity = map.getEntity(coordinates);

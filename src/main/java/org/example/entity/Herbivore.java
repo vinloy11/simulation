@@ -5,6 +5,11 @@ import org.example.model.Coordinates;
 import org.example.model.EntityName;
 import org.example.search.Search;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
+
 /**
  * Травоядное
  * Может кушать и бегать
@@ -25,12 +30,28 @@ public class Herbivore extends Creature {
 
         Coordinates closestCoordinatesEntity = search.getClosestEntity(this.coordinates, EntityName.GRASS, map);
 
-        // x y
-        // 5 1 grass
-        // 4 1 cow
-        //
-        //
+        boolean isClosest = this.coordinates.isClosest(closestCoordinatesEntity);
+        boolean isGrass = map.getEntity(closestCoordinatesEntity).name.equals(EntityName.GRASS);
 
-        System.out.println(closestCoordinatesEntity);
+        if (isClosest && isGrass) {
+            map.deleteEntity(this.coordinates);
+            this.setCoordinates(closestCoordinatesEntity);
+            map.setEntity(closestCoordinatesEntity, this);
+        } else {
+            this.move(map, search);
+        }
+    }
+
+    private void move(Map map, Search search) {
+        Set<Coordinates> visitedCoordinates = search.getVisitedCoordinates();
+
+        for (Coordinates coordinates : visitedCoordinates) {
+            if (map.isCoordinatesEmpty(coordinates) && this.coordinates.isClosest(coordinates)) {
+                map.deleteEntity(this.coordinates);
+                this.setCoordinates(coordinates);
+                map.setEntity(coordinates, this);
+                break;
+            }
+        }
     }
 }

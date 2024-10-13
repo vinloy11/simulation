@@ -35,6 +35,10 @@ public class Map {
         return entities.getOrDefault(coordinates, null);
     }
 
+    public Entity deleteEntity(Coordinates coordinates) {
+        return entities.remove(coordinates);
+    }
+
     public boolean isCoordinatesEmpty(Coordinates coordinates) {
         return !entities.containsKey(coordinates);
     }

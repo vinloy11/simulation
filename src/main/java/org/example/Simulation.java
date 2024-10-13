@@ -1,28 +1,31 @@
 package org.example;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.example.actions.Actions;
 import org.example.map.Map;
 import org.example.render.Renderer;
+
+import java.io.IOException;
 
 @Data
 public class Simulation {
     Renderer renderer = new Renderer();
     Actions actions = new Actions();
     public Map map = actions.initActions();
+    boolean aliveSimulation = true;
 
     public Simulation() {
         renderer.render(this.map);
-
-        this.nextTurn();
     }
 
     /**
      * запустить бесконечный цикл симуляции и рендеринга
      */
-    public void startSimulation() {
-
+    public void startSimulation() throws InterruptedException {
+        while (aliveSimulation) {
+            this.nextTurn();
+            Thread.sleep(2000);
+        }
     }
 
     /**
@@ -31,16 +34,12 @@ public class Simulation {
     public void nextTurn() {
         this.actions.turnActions();
         renderer.render(this.map);
-
-        System.out.println();
-
-        //    -
     }
 
     /**
      * приостановить бесконечный цикл симуляции и рендеринга
      */
     public void pauseSimulation() {
-
+        this.aliveSimulation = false;
     }
 }

@@ -16,6 +16,6 @@ public class Predator extends Creature {
 
     @Override
     public void makeMove(Map map) {
-        System.out.println("Predator make move");
+//        System.out.println("Predator make move");
     }
 }

@@ -5,6 +5,7 @@ import org.example.map.Map;
 import org.example.model.Coordinates;
 import org.example.model.EntityName;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Actions {
@@ -25,7 +26,9 @@ public class Actions {
      * Примеры - передвижение существ, добавить травы или травоядных, если их осталось слишком мало
      */
     public void turnActions() {
-        this.map.getEntities().values().forEach(entity -> {
+        HashMap<Coordinates, Entity> cloneMapEntities = new HashMap<>(this.map.getEntities());
+
+        cloneMapEntities.values().forEach(entity -> {
             if (entity instanceof Predator predator) {
                 predator.makeMove(this.map);
                 return;
@@ -53,7 +56,7 @@ public class Actions {
 
         switch (entityName) {
             case GRASS:
-                for (int i = 0; i < mapCount / 10; i++) {
+                for (int i = 0; i < mapCount / 5; i++) {
                     Coordinates coordinates = this.getRandomCoordinates();
                     Grass grass = new Grass(coordinates);
                     this.map.setEntity(coordinates, grass);
